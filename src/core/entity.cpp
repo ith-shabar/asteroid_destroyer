@@ -1,0 +1,78 @@
+#include "entity.h"
+#include "time.h"
+
+#include <SDL3/SDL.h>
+#include <SDL3/SDL_render.h>
+#include <SDL3/SDL_surface.h>
+
+Entity::Entity(SDL_FPoint pos){}
+Entity::~Entity() = default;
+
+void Entity::update(){
+   float delta_time = deltaTime();
+   position.x += velocity.x * delta_time;
+   position.y += velocity.y * delta_time;
+   updateBound();
+}
+
+void Entity::render(SDL_Renderer *renderer){
+    if (!texture || !active) return;
+    dst_rect = {
+        position.x,
+        position.y,
+        src_rect.w * scale,
+        src_rect.h * scale
+    };
+
+    SDL_RenderTextureRotated(renderer, texture, &src_rect, &dst_rect, rotation, nullptr, SDL_FLIP_NONE);
+    
+}
+
+void Entity::onCollision(Entity *other){}
+
+void Entity::updateBound(){
+    float w = src_rect.w * scale;
+    float h = src_rect.h * scale;
+    bound = {
+        position.x - w * 0.5f,
+        position.y - h * 0.5f,
+        w,
+        h
+    };
+}
+
+//Setters
+void Entity::setTexture(SDL_Texture *tex, int width , int height){ 
+    texture = tex;
+    src_rect.w = width;
+    src_rect.h = height;
+
+    updateBound();
+
+}
+
+void Entity::setPosition(SDL_FPoint pos){ position = pos; }
+void Entity::setPosition(float x , float y){ position.x = x; position.y = y;}
+
+void Entity::setVelocity(SDL_FPoint vel){ velocity = vel; }
+void Entity::setVelocity(float x, float y){ velocity.x = x; velocity.y = y;}
+
+void Entity::setRotation(float rot){ rotation = rot; }
+void Entity::setScale(float scl){ scale = scl; }
+
+void Entity::setActive(bool act){ active = act; }
+
+//Getters
+SDL_FPoint Entity::getPosition(){ return position; }
+SDL_FPoint Entity::getVelocity(){ return velocity; }
+float Entity::getRotation(){ return rotation; }
+float Entity::getScale(){ return scale; }
+SDL_Texture *Entity::getTextutre(){ return texture; }
+SDL_FRect Entity::getBound(){ return bound; }
+SDL_FRect Entity::getSrcRect(){ return src_rect;}
+SDL_FRect Entity::getDstRect(){ return dst_rect; }
+bool Entity::getActive(){ return active;}
+
+int Entity::getHeight(){ return static_cast<int>(src_rect.h); }
+int Entity::getWidth(){ return static_cast<int>(src_rect.w); }
+

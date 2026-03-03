@@ -1,0 +1,9 @@
+# Compiled codes 
+*.o
+*.d
+*.exe
+
+.clangd
+
+#executable
+astdst
