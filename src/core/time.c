@@ -15,7 +15,6 @@ float deltaTime(){
     return dt;
 }
 
-
 void updateTime(){
     uint64_t current_time = SDL_GetTicks();
     if (last_time == 0) last_time = current_time;
@@ -25,7 +24,6 @@ uint64_t getTime(){
     uint64_t time = SDL_GetTicks();
     return time;
 }
-
 
 void setFPS(uint64_t start_frame){
     uint64_t end_frame = SDL_GetTicks();

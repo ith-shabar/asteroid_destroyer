@@ -2,9 +2,9 @@
 #define APP_H
 
 #include <SDL3/SDL.h>
-#include <SDL3/SDL_render.h>
-#include <SDL3/SDL_video.h>
 #include <SDL3_image/SDL_image.h>
+
+typedef SDL_Texture texture;
 
 class App {
     private:

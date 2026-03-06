@@ -2,8 +2,6 @@
 #define ENTITY_H
 
 #include <SDL3/SDL.h>
-#include <SDL3/SDL_rect.h>
-#include <SDL3/SDL_render.h>
 
 class Entity {
     protected:
@@ -37,6 +35,8 @@ class Entity {
 
         void setVelocity(SDL_FPoint vel);
         void setVelocity(float x, float y);
+        void setVelocityX(float x);
+        void setVelocityY(float y);
 
         void setRotation(float rot);
         void setScale(float scl);

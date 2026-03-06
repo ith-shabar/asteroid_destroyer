@@ -1,10 +1,6 @@
 #include "entity.h"
 #include "time.h"
 
-#include <SDL3/SDL.h>
-#include <SDL3/SDL_render.h>
-#include <SDL3/SDL_surface.h>
-
 Entity::Entity(SDL_FPoint pos){}
 Entity::~Entity() = default;
 
@@ -61,6 +57,8 @@ void Entity::setPosition(float x , float y){ position.x = x; position.y = y;}
 
 void Entity::setVelocity(SDL_FPoint vel){ velocity = vel; }
 void Entity::setVelocity(float x, float y){ velocity.x = x; velocity.y = y;}
+void Entity::setVelocityX(float x){ velocity.x = x; }
+void Entity::setVelocityY(float y){ velocity.y = y; }
 
 void Entity::setRotation(float rot){ rotation = rot; }
 void Entity::setScale(float scl){ scale = scl; }
