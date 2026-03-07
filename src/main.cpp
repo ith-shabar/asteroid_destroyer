@@ -1,8 +1,7 @@
 #include "core/app.h"
-#include "core/entity.h"
 #include "core/time.h"
-#include <SDL3/SDL_events.h>
-#include <SDL3/SDL_oldnames.h>
+#include "game/player.h"
+#include "game/variables.h"
 #include <stdint.h>
 
 int main(int argc, char *argv[])
@@ -13,47 +12,20 @@ int main(int argc, char *argv[])
 
     texture *tex = app.createTextureFromSurface("assets/player.png");
 
-    Entity player;
+    Player player;
     player.setTexture(tex,0, 0, 24, 24);
     player.setPosition(500,450);
 
-    int running = 1;
     SDL_Event event;
-    while (running) {
+
+    while (game_running) {
 
         uint64_t time = getTime();
         updateTime(); 
 
         while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_EVENT_QUIT) {
-                running = 0;
-            }else if (event.type == SDL_EVENT_KEY_DOWN){
-                if (event.key.key == SDLK_D) {
-                   player.setVelocityX(200); 
-                }
-                if (event.key.key == SDLK_A) {
-                   player.setVelocityX(-200); 
-                }
-                if (event.key.key == SDLK_W) {
-                   player.setVelocityY(-200); 
-                }
-                if (event.key.key == SDLK_S) {
-                   player.setVelocityY(200); 
-                }
-            }else if (event.type == SDL_EVENT_KEY_UP) {
-                if (event.key.key == SDLK_D) {
-                   player.setVelocityX(0); 
-                }
-                if (event.key.key == SDLK_A) {
-                   player.setVelocityX(0); 
-                }
-                if (event.key.key == SDLK_W) {
-                   player.setVelocityY(0); 
-                }
-                if (event.key.key == SDLK_S) {
-                   player.setVelocityY(0); 
-                }
-            }
+            if (event.type == SDL_EVENT_QUIT) game_running = 0;
+            player.handleInput(event);
         }
 
         app.renderClear();

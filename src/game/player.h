@@ -7,8 +7,8 @@ class Player : public Entity {
     private:
 
     public:
-        Player();
-        ~Player();
+        
+        void handleInput(SDL_Event &event);
 
 };
 
