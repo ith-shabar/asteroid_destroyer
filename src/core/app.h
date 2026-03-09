@@ -16,12 +16,15 @@ class App {
 
         int renderWindow(char *title, int width, int height, uint32_t flags);
 
-        SDL_Texture *createTextureFromSurface(const char* file_path);
+        texture *createTextureFromSurface(const char* file_path);
 
         void renderClear();
         void display();
 
         SDL_Renderer *getRenderer();
+
+        void quitApp();
+        void quitAppAndPrintError();
 };
 
 

@@ -7,7 +7,8 @@ class Player : public Entity {
     private:
 
     public:
-        
+        void update();
+        void calculateRotation();
         void handleInput(SDL_Event &event);
 
 };

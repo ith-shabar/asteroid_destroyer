@@ -25,7 +25,7 @@ uint64_t getTime(){
     return time;
 }
 
-void setFPS(uint64_t start_frame){
+void capFPS(uint64_t start_frame){
     uint64_t end_frame = SDL_GetTicks();
     uint64_t frame_time = end_frame - start_frame;
     // this delays the next cycle if the current cycle has ended within FRAME_TICKS

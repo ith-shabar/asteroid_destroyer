@@ -15,7 +15,7 @@ void updateTime();
 
 uint64_t getTime();
 
-void setFPS(uint64_t start_frame);
+void capFPS(uint64_t start_frame);
 
 #ifdef __cplusplus
 }

@@ -2,13 +2,12 @@
 #include "core/time.h"
 #include "game/player.h"
 #include "game/variables.h"
-#include <stdint.h>
 
 int main(int argc, char *argv[])
 {               
     App app;
-    if (app.init() != 0) return 1;
-    if (app.renderWindow("testing", 1000, 700, 0) != 0)  return 1;
+    app.init();
+    app.renderWindow("testing", 1000, 700, 0);
 
     texture *tex = app.createTextureFromSurface("assets/player.png");
 
@@ -20,7 +19,7 @@ int main(int argc, char *argv[])
 
     while (game_running) {
 
-        uint64_t time = getTime();
+        uint64_t start_time = getTime();
         updateTime(); 
 
         while (SDL_PollEvent(&event)) {
@@ -33,7 +32,7 @@ int main(int argc, char *argv[])
         player.update();
         app.display();
 
-        setFPS(time);
+        capFPS(start_time);
     }
     return 0;
 }
