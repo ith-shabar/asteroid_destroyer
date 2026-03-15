@@ -28,6 +28,7 @@ class Entity {
 
         virtual void update();
         virtual void render(SDL_Renderer *renderer);
+        virtual void checkCollision(Entity *other);
         virtual void onCollision(Entity *other);
 
         void updateBound();

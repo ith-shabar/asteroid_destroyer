@@ -1,6 +1,7 @@
 #include "../core/time.h"
 #include "../core/algorithm.h"
 #include "player.h"
+#include "asteroidmanager.h"
 #include "variables.h"
 
 #include <cmath>
@@ -18,12 +19,18 @@ void Player::update(){
    if (keyW) vy -= current_player_speed;
    if (keyS) vy += current_player_speed;
 
+    if (keyD || keyS || keyW || keyA ) { moving = true;}
+    else { moving = false; }
+
    if (bound.x + bound.w > SCREEN_WIDTH) vx -= player_speed;
    if (bound.y + bound.h > SCREEN_HEIGHT) vy -= player_speed;
    if (bound.x < 0) vx += player_speed;
    if (bound.y < 0) vy += player_speed;
 
    if (keySpace || keyMouseButtonLeft) fireBullet();
+
+   if (moving) setTexture(getTextureList()[1], 0, 0, 30, 30);
+   else setTexture(getTextureList()[0], 0, 0, 30, 30);
   
    setVelocity(vx,vy);
    Entity::update();
@@ -86,6 +93,7 @@ void Player::fireBullet(){
 
         bullet->setTexture(bullet_texture, 0, 0, 3, 3);
         bullet->setScale(2);
+        bullet->updateBound();
 
         float angle_radian = (rotation - 90 + offsetAngle) * (3.14/180);
         float velocity_x = std::cos(angle_radian) * bullet_speed;
@@ -95,6 +103,14 @@ void Player::fireBullet(){
 
         bullets.add(bullet);
         last_fire_time = current_time;
+    }
+}
+
+void Player::onCollision(Entity *other){
+    if (!other->getActive()) return;
+
+    if (dynamic_cast<AsteroidManager*>(other)) {
+        other->setActive(false);
     }
 }
 

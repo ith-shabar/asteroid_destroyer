@@ -21,6 +21,8 @@ class Asteroid : public Entity {
         void setHealth(int health);
         int getHealth();
 
+        void onCollision(Entity *other) override;
+
         AsteroidManager& getAsteroidManager();
 };
 

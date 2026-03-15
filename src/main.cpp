@@ -9,9 +9,11 @@ int main(int argc, char *argv[])
 {               
     App app;
     app.init();
-    app.renderWindow("testing", SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+    app.renderWindow("astdst", SCREEN_WIDTH, SCREEN_HEIGHT, 0);
 
     texture *player_tex = app.createTextureFromSurface("assets/player.png");
+    texture *player_moving_tex = app.createTextureFromSurface("assets/playermoving.png");
+    std::vector<SDL_Texture*> player_tex_list = {player_tex, player_moving_tex};
     texture *bullet_tex = app.createTextureFromSurface("assets/bullet.png");
     texture *asteroid01_tex = app.createTextureFromSurface("assets/asteroid01.png");
     texture *asteroid02_tex = app.createTextureFromSurface("assets/asteroid02.png");
@@ -20,6 +22,7 @@ int main(int argc, char *argv[])
 
     Player player;
     player.setTexture(player_tex,0, 0, 24, 24);
+    player.setTextureList(player_tex_list);
     player.setPosition(500,450);
     player.setBulletTex(bullet_tex);
 
@@ -28,20 +31,30 @@ int main(int argc, char *argv[])
 
     SDL_Event event;
     while (game_running) {
-
-        uint64_t start_time = getTime();
         updateTime(); 
+        uint64_t start_time = getTime();
 
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_EVENT_QUIT) game_running = 0;
             player.handleInput(event);
         }
+        
+        //update
+        player.update();
+        asteroid.update();
 
+        //collision
+        for (auto *bullets : player.getBulletManager().getEntities()) {
+            for (auto *asteroids : asteroid.getAsteroidManager().getEntities()) {
+                 asteroids->checkCollision(bullets);
+            }
+        }
+
+        //render
         app.renderClear();
         player.render(app.getRenderer());
         asteroid.render(app.getRenderer());
-        player.update();
-        asteroid.update();
+
         app.display();
 
         capFPS(start_time);

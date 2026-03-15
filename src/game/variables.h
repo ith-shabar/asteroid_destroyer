@@ -23,6 +23,8 @@ extern int bullet_delay;
 
 extern int asteroid_speed;
 extern int asteroid_delay;
+extern int asteroid_min_delay;
+extern int asteroid_max_count;
 
 typedef enum game_mode { home, game, result } game_mode;
 extern game_mode mode;

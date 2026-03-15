@@ -8,7 +8,8 @@
 
 class Player : public Entity {
     private:
-        bool active;
+        bool active = true;
+        bool moving = false;
         BulletManager bullets;
         SDL_Texture *bullet_texture = nullptr;
 
@@ -23,6 +24,8 @@ class Player : public Entity {
 
         void setHealth(int health);
         int getHealth();
+
+        void onCollision(Entity *other) override;
 
         BulletManager& getBulletManager();
 };

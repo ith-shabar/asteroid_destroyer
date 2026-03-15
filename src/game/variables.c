@@ -9,10 +9,12 @@ int score = 0;
 
 int bullet_speed = 800;
 int bullet_spread = 5;
-int bullet_delay = 300;
+int bullet_delay = 200;
 
 int asteroid_speed = 200;
 int asteroid_delay = 500;
+int asteroid_min_delay = 100;
+int asteroid_max_count = 20;
 
 game_mode mode;
 levels level;
