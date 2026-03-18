@@ -23,15 +23,12 @@ class Entity {
 
         bool active = true;
 
-        enum side {top,bottom, right, left};
-
         Entity(SDL_FPoint pos = {0.0f, 0.0f});
         ~Entity();
 
         virtual void update();
         virtual void render(SDL_Renderer *renderer);
         virtual void checkCollision(Entity *other);
-        virtual void checkCollision(Entity *other,side &sd);
         virtual void onCollision(Entity *other);
 
         void updateBound();
