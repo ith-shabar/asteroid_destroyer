@@ -22,7 +22,7 @@ class UiManager{
             auto it = std::find(uis.begin(), uis.end(), ui);
             if (it != uis.end()) {
                 delete *it;
-                uierase(it);
+                uis.erase(it);
             }
         }
        
@@ -57,19 +57,19 @@ class UiManager{
         }
 
         virtual void update(){
-            for (auto* ui : uis) { 
-                if (ui->active) ui->update(); 
+            for (auto* u : uis) { 
+                if (u->active) u->update(); 
             }
         }
 
         virtual void render(SDL_Renderer * renderer){
-            for (auto* ui : uis) { 
-                if (ui->active) ui->render(renderer); 
+            for (auto* u : uis) { 
+                if (u->active) u->render(renderer); 
             }
         }
 
         //some getters
-        std::vector<T*> getui(){ return uis;}
+        std::vector<T*> getmanager(){ return uis;}
 
         size_t size() const { return uis.size(); }
         bool empty() const { return uis.empty();}

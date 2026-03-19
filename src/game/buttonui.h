@@ -10,6 +10,13 @@ class Button : public Ui {
 
     public:
 
+        void update() override;
+        void render(SDL_Renderer *renderer) override;
+        void checkHover() override;
+        void onHover(SDL_FRect *rect) override;
+
+        void checkClick() override;
+        void onClick(SDL_FRect *rect) override;
 
 } ;
 

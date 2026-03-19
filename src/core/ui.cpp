@@ -1,7 +1,6 @@
 #include "ui.h"
 #include <SDL3/SDL_mouse.h>
-#include <SDL3/SDL_rect.h>
-#include <cstdio>
+#include <cstdint>
 
 Ui::Ui(SDL_FPoint pos) { position = pos; }
 Ui::~Ui() { }
@@ -37,14 +36,19 @@ void Ui::checkHover(){
 
 }
 
+void Ui::onHover(SDL_FRect * rect){}
+
 void Ui::checkClick(){
     float x , y;
-    SDL_GetMouseState(&x, &y);
-    SDL_FRect mouse_rect = {x ,y ,1.0f, 1.0f};
+    uint32_t button = SDL_GetMouseState(&x, &y);
+    SDL_FRect mouse_rect = {x ,y ,10.0f, 10.0f};
 
-    if (SDL_HasRectIntersectionFloat(&bound, &mouse_rect) == SDL_BUTTON_LMASK) { onClick(&mouse_rect); printf("pressed"); }
+    if (SDL_HasRectIntersectionFloat(&this->bound, &mouse_rect) && (button & SDL_BUTTON_MASK(SDL_BUTTON_LEFT))) { onClick(&mouse_rect); }
 
 }
+
+void Ui::onClick(SDL_FRect * rect){}
+
 void Ui::updateBound() { 
 
     float w = src_rect.w * scale;

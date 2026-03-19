@@ -16,8 +16,9 @@ int asteroid_delay = 500;
 int asteroid_min_delay = 100;
 int asteroid_max_count = 20;
 int asteroid_max_speed = 500;
+int asteroid_max_size = 4;
 
-game_mode mode;
+game_mode mode = start;
 levels level;
 
 bool keyW = false;
@@ -27,4 +28,4 @@ bool keyD = false;
 bool keySpace = false;
 bool keyMouseButtonLeft = false;
 
-int multi_key_press = 1;
+int multi_key_press = 0;

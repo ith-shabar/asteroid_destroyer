@@ -4,11 +4,9 @@
 #include "../core/algorithm.h"
 #include "../core/time.h"
 
+#include <SDL3/SDL_render.h>
 #include <cmath>
 #include <cstdint>
-#include <cstdio>
-#include <iostream>
-#include <ostream>
 
 void Asteroid::update(){
 
@@ -57,7 +55,7 @@ void Asteroid::spwan(){
     asteroid->setTextureList(texture_list);
     asteroid->setTexture(getTextureList()[texture_index], 0, 0, 30, 30);
     asteroid->setPosition(position_x, position_y);
-    asteroid->setScale(getRandomNUmber(1, 3));
+    asteroid->setScale(getRandomNUmber(1, asteroid_max_size));
     asteroid->updateBound();
 
     // For each edge, calculate angle toward a random point in the screen
@@ -86,7 +84,9 @@ void Asteroid::onCollision(Entity *other){
             this->setActive(false);
         }
         score += 10;
-    } else if (other->getTypeID() == 2) {// for asteroid vs asteroid
+    }
+
+    else if (other->getTypeID() == 2) {// for asteroid vs asteroid
         int size1 = this->getScale();
         int size2 = other->getScale();
 

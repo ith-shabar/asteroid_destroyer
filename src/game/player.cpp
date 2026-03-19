@@ -1,8 +1,4 @@
-#include "../core/time.h"
-#include "../core/algorithm.h"
 #include "player.h"
-#include "asteroid.h"
-#include "bullet.h"
 #include "variables.h"
 
 #include <cmath>
@@ -89,7 +85,7 @@ void Player::onCollision(Entity *other){
 
     if (other->getTypeID() == 2) {
         this->setActive(false);
-        game_running = false;
+        mode = result;
         std::cout<<"score:"<<score<< std::endl;
     }
 }
